@@ -1,6 +1,14 @@
+# Reusable workflow ref bumped from @v0.3 to @main on 2026-05-22 to handle
+# HWMv2 board IDs (nice_nano//zmk). The @v0.3 ref's artifact-rename step does
+# `cp ... ${shield}-${board}-zmk.uf2`, which breaks when ${board} contains `//`
+# — cp treats the slashes as a directory separator and fails. Upstream main
+# replaces `/` with `_` via bash ${var//\//_} before naming the file.
+#
+# This ref controls the CI workflow only. The ZMK revision actually compiled
+# is pinned in config/west.yml, independently.
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@v0.3
+    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
 
