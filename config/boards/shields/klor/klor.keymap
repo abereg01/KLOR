@@ -1,6 +1,9 @@
 
 #include <behaviors.dtsi>
-#include <behaviors/num_word.dtsi>
+// num_word was provided by urob/zmk-auto-layer (v0.3 era). Dropped during the
+// ZMK main migration on 2026-05-22 — see config/west.yml. td_nav_num now uses
+// <&tog NAV>, <&tog NUM> instead (see tapdance.dtsi).
+// #include <behaviors/num_word.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>

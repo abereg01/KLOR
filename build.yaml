@@ -8,7 +8,7 @@
 # shield: [ "corne_left", "corne_right" ]
 # include:
 #   - board: bdn9_rev2
-#   - board: nice_nano_v2
+#   - board: nice_nano//zmk
 #     shield: reviung41
 #
 
@@ -16,12 +16,12 @@ include:
   # Both halves are peripherals. The central is the Prospector dongle,
   # built from the separate `prospector` repo (xiao_ble + klor_dongle +
   # prospector_adapter shield). See: prospector/build.yaml.
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: klor_left
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: klor_right
   # Flash this once on each half to wipe stale BLE bonds (e.g. when changing
   # central from "left half" to "Prospector dongle"). Boot once, then reflash
   # the normal klor_left / klor_right image.
-  - board: nice_nano_v2
+  - board: nice_nano//zmk
     shield: settings_reset

@@ -2,16 +2,16 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: urob
-      url-base: https://github.com/urob
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: v0.3
+      revision: main
       import: app/west.yml
-    - name: zmk-auto-layer
-      remote: urob
-      path: modules/zmk/auto-layer
-      revision: v0.3
   self:
     path: config
+
+# urob/zmk-auto-layer was dropped on 2026-05-22 when this repo moved from
+# ZMK v0.3 to ZMK main (Zephyr 4.1). The module has no main-compatible release
+# (its VERSION file is still v0.3.0), and pinning it to `revision: main` only
+# pulls a v0.3-era commit. The single use site (td_nav_num) has been
+# reworked to <&tog NAV>, <&tog NUM> instead — see config/boards/shields/klor/tapdance.dtsi.

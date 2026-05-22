@@ -38,7 +38,13 @@
             label = "TD_NAV_NUM";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&mo NAV>, <&num_word NUM>;
+            // Single tap toggles NAV (tap again to exit).
+            // Double tap toggles NUM (double-tap again to exit).
+            // Reworked on 2026-05-22 from <&mo NAV>, <&num_word NUM>:
+            // num_word came from urob/zmk-auto-layer which has no ZMK-main
+            // compatible release. &tog gives a self-exiting key, which the
+            // momentary form lacked anyway.
+            bindings = <&tog NAV>, <&tog NUM>;
         };
 
         td_colemak: tap_dance_colemak {
