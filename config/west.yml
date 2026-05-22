@@ -2,16 +2,27 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
+    - name: abereg01
+      url-base: https://github.com/abereg01
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
+    - name: prospector
+      remote: abereg01
+      revision: main
+      # prospector is the ZMK module providing the prospector_adapter shield
+      # (display hardware + KLOR-customized operator layout). After the
+      # 2026-05-22 repo merge, this repo (zmk-config-klor) is the single
+      # source of truth for build targets; prospector is imported as a module.
   self:
     path: config
 
-# urob/zmk-auto-layer was dropped on 2026-05-22 when this repo moved from
-# ZMK v0.3 to ZMK main (Zephyr 4.1). The module has no main-compatible release
-# (its VERSION file is still v0.3.0), and pinning it to `revision: main` only
-# pulls a v0.3-era commit. The single use site (td_nav_num) has been
-# reworked to <&tog NAV>, <&tog NUM> instead — see config/boards/shields/klor/tapdance.dtsi.
+# Notes
+# -----
+# - urob/zmk-auto-layer was dropped on 2026-05-22 when this repo moved from
+#   ZMK v0.3 to ZMK main (no main-compatible release exists). The single use
+#   site (td_nav_num) was reworked to `<&tog NAV>, <&tog NUM>`.
+# - The dongle build target lives in this repo as of 2026-05-22, using the
+#   klor_dongle shield in config/boards/shields/klor_dongle/.

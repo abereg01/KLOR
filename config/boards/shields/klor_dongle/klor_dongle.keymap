@@ -1,0 +1,20 @@
+/*
+ * KLOR dongle keymap.
+ *
+ * The dongle is the BLE central, so it (not the halves) translates key
+ * positions into keycodes. The dongle's keymap MUST be identical to the
+ * halves' — any divergence means a key on a half produces the wrong keycode.
+ *
+ * To enforce that, this file is a single-line wrapper: it just includes the
+ * halves' keymap. Edit the keymap in one place: config/boards/shields/klor/klor.keymap.
+ *
+ * Mechanics:
+ *   - Layer names use `display-name = "..."` on layer nodes in the shared keymap
+ *     (ZMK main reads layer names from display-name); on the halves with no
+ *     display attached, the property is harmlessly stored and never used.
+ *   - The physical kscan/encoder hardware is in this shield's
+ *     klor_dongle.overlay (keyless stubs), not in the keymap, so the same
+ *     keymap works on both targets.
+ */
+
+#include "../klor/klor.keymap"

@@ -1,27 +1,35 @@
-# This file generates the GitHub Actions matrix
-# For simple board + shield combinations, add them
-# to the top level board and shield arrays, for more
-# control, add individual board + shield combinations to
-# the `include` property, e.g:
+# Single-repo build matrix as of 2026-05-22 (after prospector merge).
+# This repo now produces all four firmware artifacts:
+#   - klor_left / klor_right     → halves (peripherals)
+#   - klor_dongle prospector_adapter → dongle (central, with Saturn display)
+#   - settings_reset             → bond-wipe utility, flashed once per device
+#                                  when changing central or otherwise resetting BLE
 #
-# board: [ "nice_nano_v2" ]
-# shield: [ "corne_left", "corne_right" ]
-# include:
-#   - board: bdn9_rev2
-#   - board: nice_nano//zmk
-#     shield: reviung41
+# Example syntax (for reference, unused):
 #
+#   board: [ "nice_nano//zmk" ]
+#   shield: [ "corne_left", "corne_right" ]
+#   include:
+#     - board: bdn9_rev2
 
 include:
-  # Both halves are peripherals. The central is the Prospector dongle,
-  # built from the separate `prospector` repo (xiao_ble + klor_dongle +
-  # prospector_adapter shield). See: prospector/build.yaml.
+  # ── Halves (nice_nano, ZMK split peripherals) ────────────────────────────
   - board: nice_nano//zmk
     shield: klor_left
   - board: nice_nano//zmk
     shield: klor_right
-  # Flash this once on each half to wipe stale BLE bonds (e.g. when changing
-  # central from "left half" to "Prospector dongle"). Boot once, then reflash
-  # the normal klor_left / klor_right image.
+
+  # ── Dongle (xiao_ble, ZMK split central + Saturn display) ────────────────
+  # The dongle is the BLE central and the device that talks HID to the host.
+  # Combined shield: klor_dongle (keyless input stubs) + prospector_adapter
+  # (display hardware and the KLOR-aesthetic operator layout).
+  - board: xiao_ble//zmk
+    shield: klor_dongle prospector_adapter
+
+  # ── settings_reset (both boards) ─────────────────────────────────────────
+  # Flash this once on a device to wipe stale BLE bonds (e.g. when changing
+  # the split central). Boot once, then reflash the normal image.
   - board: nice_nano//zmk
+    shield: settings_reset
+  - board: xiao_ble//zmk
     shield: settings_reset
