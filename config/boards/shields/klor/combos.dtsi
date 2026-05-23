@@ -17,8 +17,13 @@
  * Note: outer pinky columns (10, 21, 22, 35) are &trans in all layers and excluded here.
  *
  * Layer policy:
- *   - ESC, BSPC, DEL combos are active on ALL layers (no layers restriction).
- *   - All other combos are BASE + COLEMAK (layers = <BASE COLEMAK>).
+ *   - ESC, BSPC, DEL combos are active on every layer EXCEPT GAMING. They
+ *     used to be unscoped (which in ZMK means "all layers"), but the GAMING
+ *     layer (added 2026-05-23) needs a clean slate — no combo can fire
+ *     while typing WASD-class chords. So those combos now carry an explicit
+ *     `layers = <BASE COLEMAK SYSTEM RAISE NAV NUM SCROLL>;` line.
+ *   - Letter / symbol / clipboard combos are BASE + COLEMAK.
+ *   - Alt-tab combos are SYSTEM only.
  */
 
 / {
@@ -26,12 +31,14 @@
         compatible = "zmk,combos";
 
         // ── Navigation ─────────────────────────────────────────────────────────
-        // W + E  →  Escape  [all layers]
+        // W + E  →  Escape  [all layers except GAMING]
         combo_esc {
             timeout-ms = <50>;
             key-positions = <1 2>;
             bindings = <&kp ESC>;
             require-prior-idle-ms = <100>;
+            layers = <BASE COLEMAK SYSTEM RAISE NAV NUM SCROLL>;
+            slow-release;
         };
 
         // S + D  →  Tab  [BASE + COLEMAK]
@@ -41,38 +48,47 @@
             bindings = <&kp TAB>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
-        // R + T  →  Delete  [all layers]
+        // R + T  →  Delete  [all layers except GAMING]
         combo_del_top_l {
             timeout-ms = <50>;
             key-positions = <3 4>;
             bindings = <&kp DEL>;
             require-prior-idle-ms = <100>;
+            layers = <BASE COLEMAK SYSTEM RAISE NAV NUM SCROLL>;
+            slow-release;
         };
 
-        // Y + U  →  Delete  [all layers]
+        // Y + U  →  Delete  [all layers except GAMING]
         combo_del_top_r {
             timeout-ms = <50>;
             key-positions = <5 6>;
             bindings = <&kp DEL>;
             require-prior-idle-ms = <100>;
+            layers = <BASE COLEMAK SYSTEM RAISE NAV NUM SCROLL>;
+            slow-release;
         };
 
-        // F + G  →  Backspace  [all layers]
+        // F + G  →  Backspace  [all layers except GAMING]
         combo_bspc_home_l {
             timeout-ms = <50>;
             key-positions = <14 15>;
             bindings = <&kp BSPC>;
             require-prior-idle-ms = <100>;
+            layers = <BASE COLEMAK SYSTEM RAISE NAV NUM SCROLL>;
+            slow-release;
         };
 
-        // H + J  →  Backspace  [all layers]
+        // H + J  →  Backspace  [all layers except GAMING]
         combo_bspc_home_r {
             timeout-ms = <50>;
             key-positions = <16 17>;
             bindings = <&kp BSPC>;
             require-prior-idle-ms = <100>;
+            layers = <BASE COLEMAK SYSTEM RAISE NAV NUM SCROLL>;
+            slow-release;
         };
 
         // F + J  →  Caps Word  [BASE + COLEMAK]
@@ -82,6 +98,7 @@
             bindings = <&caps_word>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // ── Clipboard ──────────────────────────────────────────────────────────
@@ -92,6 +109,7 @@
             bindings = <&kp LC(C)>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // C + V  →  Paste  [BASE + COLEMAK]
@@ -101,6 +119,7 @@
             bindings = <&kp LC(V)>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // X + V  →  Cut  [BASE + COLEMAK]
@@ -110,6 +129,7 @@
             bindings = <&kp LC(X)>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // ── Symbols: left side ─────────────────────────────────────────────────
@@ -120,6 +140,7 @@
             bindings = <&kp DLLR>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // R + F  →  |  [BASE + COLEMAK]  (vertical top→home)
@@ -129,6 +150,7 @@
             bindings = <&kp PIPE>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // Q + W  →  ~  [BASE + COLEMAK]
@@ -138,6 +160,7 @@
             bindings = <&kp TILDE>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // E + R  →  &  [BASE + COLEMAK]
@@ -147,6 +170,7 @@
             bindings = <&kp AMPS>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // A + S  →  @  [BASE + COLEMAK]
@@ -156,6 +180,7 @@
             bindings = <&kp AT>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // D + F  →  #  [BASE + COLEMAK]
@@ -165,6 +190,7 @@
             bindings = <&kp HASH>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // S + X  →  `  [BASE + COLEMAK]  (diagonal home→bottom)
@@ -174,6 +200,7 @@
             bindings = <&kp GRAVE>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // Z + X  →  / / \  [BASE + COLEMAK]
@@ -183,6 +210,7 @@
             bindings = <&mm_fslh_bslh>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // ── Symbols: right side ────────────────────────────────────────────────
@@ -193,6 +221,7 @@
             bindings = <&kp CARET>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // I + K  →  *  [BASE + COLEMAK]  (vertical top→home)
@@ -202,6 +231,7 @@
             bindings = <&kp STAR>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // O + P  →  + / =  [BASE + COLEMAK]
@@ -211,6 +241,7 @@
             bindings = <&mm_plus_equal>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // L + ;  →  ' / "  [BASE + COLEMAK]
@@ -220,6 +251,7 @@
             bindings = <&kp SQT>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // . + ?  →  - / _  [BASE + COLEMAK]
@@ -229,6 +261,7 @@
             bindings = <&mm_minus_under>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // ── Brackets / parens ──────────────────────────────────────────────────
@@ -239,6 +272,7 @@
             bindings = <&kp LPAR>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // I + O  →  )  [BASE + COLEMAK, top row]
@@ -248,6 +282,7 @@
             bindings = <&kp RPAR>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // J + K  →  {  [BASE + COLEMAK, home row]
@@ -257,6 +292,7 @@
             bindings = <&kp LBRC>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // K + L  →  }  [BASE + COLEMAK, home row]
@@ -266,6 +302,7 @@
             bindings = <&kp RBRC>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // M + ,  →  [  [BASE + COLEMAK, bottom row]
@@ -275,6 +312,7 @@
             bindings = <&kp LBKT>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // , + .  →  ]  [BASE + COLEMAK, bottom row]
@@ -284,6 +322,7 @@
             bindings = <&kp RBKT>;
             require-prior-idle-ms = <100>;
             layers = <BASE COLEMAK>;
+            slow-release;
         };
 
         // ── System layer combos ────────────────────────────────────────────────
@@ -294,6 +333,7 @@
             key-positions = <12 13>;
             bindings = <&kp LA(TAB)>;
             layers = <SYSTEM>;
+            slow-release;
         };
 
         // X + C  →  Alt + Shift + Tab  [SYSTEM only]
@@ -303,6 +343,7 @@
             key-positions = <24 25>;
             bindings = <&kp LA(LS(TAB))>;
             layers = <SYSTEM>;
+            slow-release;
         };
 
     };

@@ -18,6 +18,7 @@
 #define NAV      4
 #define NUM      5
 #define SCROLL   6
+#define GAMING   7
 
 #include "combos.dtsi"
 #include "macros.dtsi"
@@ -40,14 +41,15 @@ display-name = "BASE";
    ├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┤╭────────╮╭────────╮├─────────┼─────────┼─────────┼─────────┼─────────┼───────────┤
    │    ───    │    Z    │    X    │    C    │    V    │    B    ││ ENTER  ││SCR→H   ││    N    │    M    │   ,/;   │   ./:   │   ?/!   │    ───    │
    └───────────┴─────────┴─────────┼─────────┼─────────┼─────────┼╰────────╯╰────────╯┼─────────┼─────────┼─────────┼─────────┴─────────┴───────────┘
-                                   │SYS(tog) │SPC/RAISE│ CMKDH  │   ───   ││   ───   │  ENTER  │SPC/RAISE│NAV/NUM  │
-                                   └─────────┴─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┴─────────┘  */
+                                   │SYS/GAME │SPC/RAISE│ CMKDH  │   ───   ││   ───   │  ENTER  │SPC/RAISE│NAV/NUM  │
+                                   └─────────┴─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┴─────────┘
+                                   tap = SYSTEM, double-tap = GAMING toggle                                       */
 bindings = <
 //╷           ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷           ╷
                 &kp Q     &kp W     &kp E     &kp R     &kp T                          &kp Y     &kp U     &kp I     &kp O     &td_p
     &trans      &td_a     &hm LALT S  &hm LSHFT D  &hm LCTRL F  &kp G                  &kp H     &hm RGUI J  &hm RSHFT K  &hm RALT L  &hm RCTRL SEMI  &trans
     &trans      &kp Z     &kp X     &kp C     &kp V     &kp B     &kp RET    &tog SCROLL  &kp N     &kp M     &mm_comma &mm_dot   &mm_qmark &trans
-                                    &mo_tog SYSTEM SYSTEM  &lt RAISE SPACE  &td_colemak  &trans  &trans  &kp RET  &lt RAISE SPACE  &td_nav_num
+                                    &td_sys_gaming  &lt RAISE SPACE  &td_colemak  &trans  &trans  &kp RET  &lt RAISE SPACE  &td_nav_num
         >;
         sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp C_AC_SCROLL_UP C_AC_SCROLL_DOWN>;
         };
@@ -159,6 +161,38 @@ bindings = <
                                     &trans    &trans    &trans    &trans     &trans    &trans    &trans    &trans
         >;
         sensor-bindings = <&inc_dec_kp UP DOWN &scrl_h>;
+        };
+
+// ▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄▄
+
+        gaming_layer {
+display-name = "GAMING";
+/*  ╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗
+    ║  GAMING — pure-keypress layer, no mods, no morphs, no tap-dances, no combos.                      ║
+    ║  Entered/exited via SYS thumb double-tap (`td_sys_gaming`). Plain `&kp` everywhere so home-row    ║
+    ║  letters under heavy hold (e.g. WASD) never trigger mods. Combos do not fire on this layer        ║
+    ║  because each combo lists explicit `layers = <BASE COLEMAK>` (or SYSTEM); none lists GAMING.      ║
+    ║  Encoder is plain ↑↓ / scroll like BASE, but with no hold-tap / sensor-rotate layering quirks.    ║
+    ╚═══════════════════════════════════════════════════════════════════════════════════════════════════╝
+               ┌─────────┬─────────┬─────────┬─────────┬─────────┐                    ┌─────────┬─────────┬─────────┬─────────┬─────────┐
+               │    Q    │    W    │    E    │    R    │    T    │                    │    Y    │    U    │    I    │    O    │    P    │
+   ┌───────────┼─────────┼─────────┼─────────┼─────────┼─────────┤                    ├─────────┼─────────┼─────────┼─────────┼─────────┼───────────┐
+   │    ───    │    A    │    S    │    D    │    F    │    G    │                    │    H    │    J    │    K    │    L    │    ;    │    ───    │
+   ├───────────┼─────────┼─────────┼─────────┼─────────┼─────────┤╭────────╮╭────────╮├─────────┼─────────┼─────────┼─────────┼─────────┼───────────┤
+   │    ───    │    Z    │    X    │    C    │    V    │    B    ││ ENTER  ││ ENTER  ││    N    │    M    │    ,    │    .    │    /    │    ───    │
+   └───────────┴─────────┴─────────┼─────────┼─────────┼─────────┼╰────────╯╰────────╯┼─────────┼─────────┼─────────┼─────────┴─────────┴───────────┘
+                                   │ EXIT GM │  SPACE  │  LSHFT  │   ───   ││   ───   │  ENTER  │  SPACE  │  LALT   │
+                                   └─────────┴─────────┴─────────┴─────────┘└─────────┴─────────┴─────────┴─────────┘
+                                   EXIT GM = &tog GAMING (single tap returns to BASE/COLEMAK)
+*/
+bindings = <
+//╷           ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷           ╷
+                &kp Q     &kp W     &kp E     &kp R     &kp T                          &kp Y     &kp U     &kp I     &kp O     &kp P
+    &trans      &kp A     &kp S     &kp D     &kp F     &kp G                          &kp H     &kp J     &kp K     &kp L     &kp SEMI  &trans
+    &trans      &kp Z     &kp X     &kp C     &kp V     &kp B     &kp RET    &kp RET   &kp N     &kp M     &kp COMMA &kp DOT   &kp FSLH  &trans
+                                    &tog GAMING  &kp SPACE  &kp LSHFT  &trans  &trans  &kp RET  &kp SPACE  &kp LALT
+        >;
+        sensor-bindings = <&inc_dec_kp UP DOWN &inc_dec_kp C_AC_SCROLL_UP C_AC_SCROLL_DOWN>;
         };
 
     };

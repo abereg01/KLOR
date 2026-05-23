@@ -42,6 +42,8 @@ parse_config:
 
     "&td_colemak": { "t": "CMK DH" }
     "&mo_tog SYSTEM SYSTEM": SYS
+    "&td_sys_gaming": { "t": "SYS", "h": "GAME" }
+    "&tog GAMING": { "t": "exit", "h": "GAME" }
 
     "&mm_plus_equal": { "t": "+", "s": "=" }
     "&mm_minus_under": { "t": "-", "s": "_" }

@@ -1,18 +1,13 @@
 /*
  * Macro definitions for the KLOR keymap.
  * Include this file in klor.keymap via: #include "macros.dtsi"
+ *
+ * Currently empty — the old macro_siai TODO placeholder was removed
+ * 2026-05-23 as part of the GAMING layer + slow-release combo refactor.
+ * Add new macros inside the `macros { ... }` block below.
  */
 
 / {
     macros {
-
-        macro_siai: macro_siai {
-            compatible = "zmk,behavior-macro";
-            label = "SIAI";
-            #binding-cells = <0>;
-            // TODO: replace with actual key sequence
-            bindings = <&kp SPACE>;
-        };
-
     };
 };

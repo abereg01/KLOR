@@ -70,7 +70,7 @@ layers:
     - {t: ".",  tl: "$$mdi:play-pause$$",    bl: "3"}                   # 30 — &mm_dot;   SYSTEM: C_PP
     - {t: "?",  tl: "$$mdi:skip-forward$$"}                             # 31 — &mm_qmark; SYSTEM: C_NEXT
     # ───── Thumb row (positions 32–37) ───────────────────────────────────────
-    - {t: SYS}                                                          # 32 — &mo_tog: tap=tog SYSTEM, hold=mo SYSTEM
+    - {t: SYS, h: GAME}                                                 # 32 — &td_sys_gaming: tap=mo SYSTEM, double-tap=tog GAMING
     - {t: "$$mdi:keyboard-space$$", h: RAISE}                                                # 33 — &lt RAISE SPACE
     - {t: "CMK DH"}                                                     # 34 — &td_colemak: double-tap to toggle Colemak DH
     - {t: "$$mdi:keyboard-return$$"}                                                        # 35
@@ -120,6 +120,53 @@ layers:
     - {t: "$$mdi:keyboard-return$$"}                                                         # 35
     - {t: "$$mdi:keyboard-space$$", h: RAISE}                                                 # 36
     - {t: NAV, h: "NUM", bl: "0"}                                        # 37
+
+  Gaming:
+    # Pure-keypress layer entered via SYS thumb double-tap. No hold-mods, no
+    # mod-morphs, no tap-dances, no combos (each combo lists explicit
+    # `layers = <BASE COLEMAK>` or `<SYSTEM>` — none lists GAMING).
+    # ───── Top row (positions 0–9) ───────────────────────────────────────────
+    - {t: Q}                                                             # 0
+    - {t: W}                                                             # 1
+    - {t: E}                                                             # 2
+    - {t: R}                                                             # 3
+    - {t: T}                                                             # 4
+    - {t: Y}                                                             # 5
+    - {t: U}                                                             # 6
+    - {t: I}                                                             # 7
+    - {t: O}                                                             # 8
+    - {t: P}                                                             # 9
+    # ───── Home row (positions 10–19) ────────────────────────────────────────
+    - {t: A}                                                             # 10 — plain &kp A (no GUI hold, no Ä morph)
+    - {t: S}                                                             # 11 — plain &kp S (no Alt hold)
+    - {t: D}                                                             # 12 — plain &kp D (no Shift hold)
+    - {t: F}                                                             # 13 — plain &kp F (no Ctrl hold)
+    - {t: G}                                                             # 14
+    - {t: H}                                                             # 15
+    - {t: J}                                                             # 16 — plain &kp J (no GUI hold)
+    - {t: K}                                                             # 17 — plain &kp K (no Shift hold)
+    - {t: L}                                                             # 18 — plain &kp L (no Alt hold)
+    - {t: ";"}                                                           # 19 — plain &kp SEMI
+    # ───── Bottom row + 2 middle thumbs (positions 20–31) ────────────────────
+    - {t: Z}                                                             # 20
+    - {t: X}                                                             # 21
+    - {t: C}                                                             # 22
+    - {t: V}                                                             # 23
+    - {t: B}                                                             # 24
+    - {t: "$$mdi:swap-vertical$$", h: "$$mdi:keyboard-return$$"}                                              # 25 — left encoder (same as BASE)
+    - {t: "$$mdi:swap-vertical$$"}                                                                            # 26 — right encoder (plain ↑/↓, no SCROLL layering)
+    - {t: N}                                                             # 27
+    - {t: M}                                                             # 28
+    - {t: ","}                                                           # 29 — plain &kp COMMA (no mod-morph)
+    - {t: "."}                                                           # 30 — plain &kp DOT (no mod-morph)
+    - {t: "/"}                                                           # 31 — plain &kp FSLH (no mod-morph)
+    # ───── Thumb row (positions 32–37) ───────────────────────────────────────
+    - {t: "exit", h: "GAME"}                                            # 32 — &tog GAMING: single tap returns to BASE
+    - {t: "$$mdi:keyboard-space$$"}                                                                            # 33 — plain &kp SPACE
+    - {t: Shift}                                                         # 34 — plain &kp LSHFT (sprint key for most games)
+    - {t: "$$mdi:keyboard-return$$"}                                                                            # 35 — plain &kp RET
+    - {t: "$$mdi:keyboard-space$$"}                                                                            # 36 — plain &kp SPACE
+    - {t: Alt}                                                           # 37 — plain &kp LALT (alt-tab / push-to-talk etc.)
 
   Combos:
     # Clean background for the combo diagram — every key rendered as transparent.

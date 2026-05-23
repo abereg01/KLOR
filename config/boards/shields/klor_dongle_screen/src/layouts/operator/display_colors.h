@@ -90,7 +90,7 @@ static inline uint32_t display_color_for_mod(enum modifier_type type) {
 // Each layer gets its own color, used for both the layer-name label text and
 // the active bars of the WPM meter. Indices match the layer order in
 // klor_dongle.keymap:
-//   0 BASE / 1 COLEMAK / 2 SYSTEM / 3 RAISE / 4 NAV / 5 NUM / 6 SCROLL
+//   0 BASE / 1 COLEMAK / 2 SYSTEM / 3 RAISE / 4 NAV / 5 NUM / 6 SCROLL / 7 GAMING
 static inline uint32_t display_color_for_layer(uint8_t idx) {
     switch (idx) {
         case 0: return 0xD8DEE9; // BASE    — Nord4 snow (default/home)
@@ -100,6 +100,7 @@ static inline uint32_t display_color_for_layer(uint8_t idx) {
         case 4: return 0xEBCB8B; // NAV     — Nord13 yellow
         case 5: return 0xD08770; // NUM     — Nord12 orange
         case 6: return 0x8FBCBB; // SCROLL  — Nord7 frost teal
+        case 7: return 0xBF616A; // GAMING  — Nord11 red (loud / "watch out" indicator)
         default: return DISPLAY_COLOR_LAYER_TEXT;
     }
 }

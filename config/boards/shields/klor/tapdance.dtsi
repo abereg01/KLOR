@@ -55,5 +55,20 @@
             bindings = <&trans>, <&tog COLEMAK>;  // single-tap = pass-through; double-tap = toggle Colemak DH
         };
 
+        // Replaces the old `&mo_tog SYSTEM SYSTEM` on the left SYS thumb.
+        // Single-tap → momentary SYSTEM (media, BT controls, etc.)
+        // Double-tap → toggle GAMING layer on/off
+        //
+        // Why a tap-dance and not `&mo_tog`: `mo_tog` couples the hold target
+        // and the double-tap target. We need momentary SYSTEM on tap-hold and
+        // a DIFFERENT layer (GAMING) on double-tap.
+        td_sys_gaming: tap_dance_sys_gaming {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TD_SYS_GAMING";
+            #binding-cells = <0>;
+            tapping-term-ms = <250>;
+            bindings = <&mo SYSTEM>, <&tog GAMING>;
+        };
+
     };
 };
