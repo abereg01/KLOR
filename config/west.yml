@@ -2,20 +2,11 @@ manifest:
   remotes:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
-    - name: abereg01
-      url-base: https://github.com/abereg01
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: prospector
-      remote: abereg01
-      revision: main
-      # prospector is the ZMK module providing the prospector_adapter shield
-      # (display hardware + KLOR-customized operator layout). After the
-      # 2026-05-22 repo merge, this repo (zmk-config-klor) is the single
-      # source of truth for build targets; prospector is imported as a module.
   self:
     path: config
 
@@ -26,3 +17,10 @@ manifest:
 #   site (td_nav_num) was reworked to `<&tog NAV>, <&tog NUM>`.
 # - The dongle build target lives in this repo as of 2026-05-22, using the
 #   klor_dongle shield in config/boards/shields/klor_dongle/.
+# - On 2026-05-23 the prospector ZMK module (display driver, ST7789V
+#   amendment, event types, fonts, KLOR-aesthetic operator layout) was
+#   absorbed into this repo as the klor_dongle_screen shield and the
+#   top-level module (see zephyr/module.yml + CMakeLists.txt + Kconfig at
+#   the repo root). The abereg01/prospector entry that previously lived
+#   here is gone — the build no longer depends on that external repo.
+#   See memory: prospector_absorbed_into_klor.md.

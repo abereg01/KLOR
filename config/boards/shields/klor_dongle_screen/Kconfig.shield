@@ -1,0 +1,2 @@
+config SHIELD_KLOR_DONGLE_SCREEN
+    def_bool $(shields_list_contains,klor_dongle_screen)

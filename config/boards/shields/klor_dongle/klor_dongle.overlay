@@ -1,12 +1,12 @@
 /*
- * KLOR Dongle overlay — XIAO BLE acting as split central + Prospector display
+ * KLOR Dongle overlay — XIAO BLE acting as split central + klor_dongle_screen display
  *
  * No kscan: key events arrive from both halves over BLE split protocol.
  * No encoder GPIO: encoder events arrive from halves over BLE.
  * Encoder stubs + sensors node are still required so the keymap
  * sensor-bindings compile and ZMK can map incoming sensor indices.
  *
- * Display is provided by the prospector_adapter shield — not defined here.
+ * Display is provided by the klor_dongle_screen shield — not defined here.
  */
 
 #include <dt-bindings/zmk/matrix_transform.h>
@@ -15,7 +15,7 @@
     chosen {
         zmk,matrix_transform = &default_transform;
         // zmk,kscan intentionally omitted — no physical matrix on dongle
-        // zephyr,display handled by prospector_adapter
+        // zephyr,display handled by klor_dongle_screen
     };
 
     /*

@@ -1,15 +1,15 @@
 if SHIELD_KLOR_LEFT
 
     # Note: ZMK_KEYBOARD_NAME is intentionally NOT set here.
-    # Both halves are now peripherals to the Prospector dongle (xiao_ble +
-    # klor_dongle + prospector_adapter shield in the prospector repo), which
+    # Both halves are now peripherals to the KLOR dongle (xiao_ble + the
+    # klor_dongle + klor_dongle_screen shield pair, both in this repo), which
     # is the device that advertises as HID and owns the visible name.
     # Peripherals don't expose themselves to the host; they only advertise
     # to the central over the ZMK split protocol.
 
     # ZMK_SPLIT_BLE_ROLE_CENTRAL is intentionally NOT set here.
     # When ZMK_SPLIT=y is enabled without the central role flag, the device
-    # defaults to peripheral. The Prospector dongle is the sole central.
+    # defaults to peripheral. The KLOR dongle is the sole central.
 
 endif # LEFT
 

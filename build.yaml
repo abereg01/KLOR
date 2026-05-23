@@ -1,9 +1,10 @@
-# Single-repo build matrix as of 2026-05-22 (after prospector merge).
-# This repo now produces all four firmware artifacts:
-#   - klor_left / klor_right     → halves (peripherals)
-#   - klor_dongle prospector_adapter → dongle (central, with Saturn display)
-#   - settings_reset             → bond-wipe utility, flashed once per device
-#                                  when changing central or otherwise resetting BLE
+# Single-repo build matrix.
+# After the 2026-05-23 prospector absorption, this repo is the SOLE source for
+# every firmware artifact (no abereg01/prospector dependency in west.yml):
+#   - klor_left / klor_right       → halves (peripherals)
+#   - klor_dongle klor_dongle_screen → dongle (central, with Saturn display)
+#   - settings_reset               → bond-wipe utility, flashed once per device
+#                                    when changing central or resetting BLE
 #
 # Example syntax (for reference, unused):
 #
@@ -21,10 +22,12 @@ include:
 
   # ── Dongle (xiao_ble, ZMK split central + Saturn display) ────────────────
   # The dongle is the BLE central and the device that talks HID to the host.
-  # Combined shield: klor_dongle (keyless input stubs) + prospector_adapter
+  # Combined shield: klor_dongle (keyless input stubs) + klor_dongle_screen
   # (display hardware and the KLOR-aesthetic operator layout).
+  # klor_dongle_screen is the renamed/absorbed prospector_adapter — same
+  # files, klor-prefixed identity. See prospector_absorbed_into_klor.md.
   - board: xiao_ble//zmk
-    shield: klor_dongle prospector_adapter
+    shield: klor_dongle klor_dongle_screen
 
   # ── settings_reset (both boards) ─────────────────────────────────────────
   # Flash this once on a device to wipe stale BLE bonds (e.g. when changing
