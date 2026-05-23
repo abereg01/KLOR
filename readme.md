@@ -34,7 +34,7 @@ Both halves are BLE peripherals; the XIAO BLE dongle is the split central and th
 | 3 | RAISE   | Hold either `SPC/RAISE` thumb |
 | 4 | NAV     | Single hold of right outer thumb (`NAV/NUM`) |
 | 5 | NUM     | Double-tap right outer thumb → Smart-Num |
-| 6 | SCROLL  | Hold right encoder button |
+| 6 | SCROLL  | Tap right encoder button to enter; tap again to exit |
 
 ---
 
@@ -82,12 +82,12 @@ Hold Shift and tap the right thumb space key to activate Caps Word. Types in ALL
 
 ### Encoders
 
-| Encoder | Rotate | While holding button |
-|---------|--------|----------------------|
-| Left    | Scroll up / down | — |
+| Encoder | Rotate (default) | Rotate while in SCROLL layer |
+|---------|------------------|------------------------------|
+| Left    | Scroll up / down | (unchanged) |
 | Right   | Scroll up / down | Scroll left / right |
 
-Horizontal scroll uses ZMK's pointing layer (`msc SCRL_LEFT/RIGHT`) for reliable cross-app support.
+The right encoder's button **toggles** the SCROLL layer — tap once to enter, tap again to exit. (Hold-to-scroll-sideways doesn't work in practice: you can't hold the button and rotate the encoder at the same time.) Horizontal scroll uses ZMK's pointing layer (`msc SCRL_LEFT/RIGHT`) for reliable cross-app support.
 
 ### Combos
 All combos use a 50 ms timeout with a 100 ms prior-idle guard. See `combos.dtsi` for the full position map.
