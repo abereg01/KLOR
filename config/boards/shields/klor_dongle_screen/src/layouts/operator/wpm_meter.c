@@ -24,10 +24,6 @@ static int peak_decay_counter = 0;
 static const float smoothing_factor_up = 0.3f;
 static const float smoothing_factor_down = 0.05f;
 
-// Tracks the active layer index so wpm_meter_render() can color the active
-// bars with display_color_for_layer(). Updated in layer_update_cb.
-static uint8_t current_layer = 0;
-
 struct wpm_meter_state {
     uint8_t wpm;
 };
@@ -43,10 +39,12 @@ static void wpm_meter_render(int active_bars) {
             int min_bar = (active_bars < prev_active_bars) ? active_bars : prev_active_bars;
             int max_bar = (active_bars > prev_active_bars) ? active_bars : prev_active_bars;
             for (int i = min_bar; i < max_bar; i++) {
-                // Active bars take the per-layer accent; inactive bars stay
-                // dim. Peak indicator (handled below) is unchanged.
+                // Active bars are always Nord8 frost blue (constant, not
+                // layer-tinted) so the meter stays visually distinct from the
+                // layer label and is easy to track at a glance. Inactive bars
+                // stay dim. Peak indicator (handled below) is unchanged.
                 lv_color_t color = (i < active_bars)
-                    ? lv_color_hex(display_color_for_layer(current_layer))
+                    ? lv_color_hex(DISPLAY_COLOR_WPM_BAR_ACTIVE)
                     : lv_color_hex(DISPLAY_COLOR_WPM_BAR_INACTIVE);
                 lv_obj_set_style_bg_color(widget->bars[i], color, LV_PART_MAIN);
             }
@@ -128,10 +126,6 @@ static struct wpm_meter_state wpm_meter_get_state(const zmk_event_t *eh) {
 }
 
 static void layer_update_cb(struct layer_state state) {
-    // Cache the active layer so the next wpm_meter_render() picks the right
-    // accent color for the active bars.
-    current_layer = state.index;
-
     struct zmk_widget_wpm_meter *widget;
     SYS_SLIST_FOR_EACH_CONTAINER(&widgets, widget, node) {
         const char *layer_name = zmk_keymap_layer_name(zmk_keymap_layer_index_to_id(state.index));
@@ -155,16 +149,8 @@ static void layer_update_cb(struct layer_state state) {
                                     lv_color_hex(display_color_for_layer(state.index)),
                                     LV_PART_MAIN);
 
-        // Force a re-render so the already-lit bars pick up the new accent
-        // color immediately (otherwise they'd only retint as the bar count
-        // changes when WPM moves).
-        if (prev_active_bars > 0) {
-            int repainted = prev_active_bars;
-            lv_color_t color = lv_color_hex(display_color_for_layer(current_layer));
-            for (int i = 0; i < repainted; i++) {
-                lv_obj_set_style_bg_color(widget->bars[i], color, LV_PART_MAIN);
-            }
-        }
+        // WPM bars are layer-independent (always Nord8 frost blue), so no
+        // bar re-tint is needed on a layer change — only the layer label.
     }
 }
 
