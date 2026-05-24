@@ -6,7 +6,7 @@
             label = "TD_A_AE";             // tap → A (GUI when held) | double-tap → Ä (A-umlaut)
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&hm LGUI A>, <&kp RA(Q)>;  // RA(Q) = AltGr+Q = Ä  (adjust if your layout differs)
+            bindings = <&hml LGUI A>, <&kp RA(Q)>;  // RA(Q) = AltGr+Q = Ä  (adjust if your layout differs)
         };
 
         td_p: tap_dance_p {
@@ -30,7 +30,7 @@
             label = "TD_O_OE";             // tap → O (RCTRL when held) | double-tap → Ö  (Colemak home-right)
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&hm RCTRL O>, <&kp RA(O)>;  // RA(O) = AltGr+O = Ö
+            bindings = <&hmr RCTRL O>, <&kp RA(O)>;  // RA(O) = AltGr+O = Ö
         };
 
         td_nav_num: tap_dance_nav_num {

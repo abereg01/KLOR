@@ -47,7 +47,7 @@ display-name = "BASE";
 bindings = <
 //╷           ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷           ╷
                 &kp Q     &kp W     &kp E     &kp R     &kp T                          &kp Y     &kp U     &kp I     &kp O     &td_p
-    &trans      &td_a     &hm LALT S  &hm LSHFT D  &hm LCTRL F  &kp G                  &kp H     &hm RGUI J  &hm RSHFT K  &hm RALT L  &hm RCTRL SEMI  &trans
+    &trans      &td_a     &hml LALT S  &hml LSHFT D  &hml LCTRL F  &kp G                 &kp H     &hmr RGUI J  &hmr RSHFT K  &hmr RALT L  &hmr RCTRL SEMI  &trans
     &trans      &kp Z     &kp X     &kp C     &kp V     &kp B     &kp RET    &tog SCROLL  &kp N     &kp M     &mm_comma &mm_dot   &mm_qmark &trans
                                     &td_sys_gaming  &lt RAISE SPACE  &td_colemak  &trans  &trans  &kp RET  &lt RAISE SPACE  &td_nav_num
         >;
@@ -70,7 +70,7 @@ display-name = "COLEMAK";
 bindings = <
 //╷           ╷         ╷         ╷         ╷         ╷         ╷         ╷╷         ╷         ╷         ╷         ╷         ╷         ╷           ╷
                 &kp Q     &kp W     &kp F     &kp P     &kp B                          &kp J     &kp L     &kp U     &kp Y     &td_semi_aa
-    &trans      &td_a     &hm LALT R  &hm LSHFT S  &hm LCTRL T  &kp G                  &kp M     &hm RGUI N  &hm RSHFT E  &hm RALT I  &td_o_colemak  &trans
+    &trans      &td_a     &hml LALT R  &hml LSHFT S  &hml LCTRL T  &kp G                 &kp M     &hmr RGUI N  &hmr RSHFT E  &hmr RALT I  &td_o_colemak  &trans
     &trans      &kp Z     &kp X     &kp C     &kp D     &kp V     &trans     &trans    &kp K     &kp H     &mm_comma &mm_dot   &mm_qmark &trans
                                     &trans    &trans    &trans    &trans     &trans    &trans    &trans    &trans
         >;
