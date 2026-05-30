@@ -21,7 +21,10 @@
             compatible = "zmk,behavior-mod-morph";
             label = "MM_QMARK";
             #binding-cells = <0>;
-            bindings = <&kp QMARK>, <&kp EXCL>;
+            // SE layout: UNDER = LS(MINUS) → HID Shift+0x2D = '?' on SE.
+            //            EXCL  = LS(N1)    → HID Shift+0x1E = '!' on SE. ✓
+            // (On US layout UNDER would give '_', so this is SE-specific.)
+            bindings = <&kp UNDER>, <&kp EXCL>;
             mods = <(MOD_LSFT|MOD_RSFT)>;
         };
 

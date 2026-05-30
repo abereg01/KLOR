@@ -10,6 +10,30 @@
             bindings = <&mo>, <&tog>;
         };
 
+        // Hold = momentary layer (&mo), Tap = one-shot/sticky layer (&sl).
+        // Used for the SYS thumb so a quick tap gives a sticky layer (press SYS,
+        // release, then press a key on SYSTEM) while holding keeps it momentary.
+        sl_mo: sticky_or_momentary {
+            compatible = "zmk,behavior-hold-tap";
+            label = "SL_MO";
+            #binding-cells = <2>;
+            bindings = <&mo>, <&sl>;
+            tapping-term-ms = <200>;
+            flavor = "hold-preferred";
+        };
+
+        // Hold = momentary layer (&mo), Tap = toggle layer (&tog).
+        // Used as the inner binding in td_nav_num so holding the thumb gives
+        // momentary NUM, a quick tap toggles NAV, and double-tap toggles NUM.
+        ht_mo_tog: hold_tap_mo_tog {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HT_MO_TOG";
+            #binding-cells = <2>;
+            bindings = <&mo>, <&tog>;
+            tapping-term-ms = <200>;
+            flavor = "hold-preferred";
+        };
+
         // ─────────────────────────────────────────────────────────────────────
         //  Timeless homerow mods (introduced 2026-05-24)
         //

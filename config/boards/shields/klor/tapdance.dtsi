@@ -3,34 +3,38 @@
 
         td_a: tap_dance_a {
             compatible = "zmk,behavior-tap-dance";
-            label = "TD_A_AE";             // tap → A (GUI when held) | double-tap → Ä (A-umlaut)
+            label = "TD_A_AE";             // tap → A (GUI when held) | double-tap → ä/Ä
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&hml LGUI A>, <&kp RA(Q)>;  // RA(Q) = AltGr+Q = Ä  (adjust if your layout differs)
+            // SE layout: HID APOS (0x34) = ä/Ä. RA(Q) was wrong — that gives @ on SE.
+            bindings = <&hml LGUI A>, <&kp SQT>;
         };
 
         td_p: tap_dance_p {
             compatible = "zmk,behavior-tap-dance";
-            label = "TD_P_ARING";          // tap → P | double-tap → Å (A-ring)
+            label = "TD_P_ARING";          // tap → P | double-tap → å/Å (A-ring)
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp P>, <&kp RA(A)>;        // RA(A) = AltGr+A = Å
+            // SE layout: HID LBKT (0x2F) = å/Å. RA(A) was wrong — that is not Å on SE.
+            bindings = <&kp P>, <&kp LBKT>;
         };
 
         td_semi_aa: tap_dance_semi_aring {
             compatible = "zmk,behavior-tap-dance";
-            label = "TD_SEMI_ARING";       // tap → ; | double-tap → Å  (Colemak top-right)
+            label = "TD_SEMI_ARING";       // tap → ; | double-tap → å/Å  (Colemak top-right)
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&kp SEMI>, <&kp RA(A)>;     // RA(A) = AltGr+A = Å
+            // SE layout: HID LBKT (0x2F) = å/Å.
+            bindings = <&kp SEMI>, <&kp LBKT>;
         };
 
         td_o_colemak: tap_dance_o_colemak {
             compatible = "zmk,behavior-tap-dance";
-            label = "TD_O_OE";             // tap → O (RCTRL when held) | double-tap → Ö  (Colemak home-right)
+            label = "TD_O_OE";             // tap → O (RCTRL when held) | double-tap → ö/Ö  (Colemak home-right)
             #binding-cells = <0>;
             tapping-term-ms = <200>;
-            bindings = <&hmr RCTRL O>, <&kp RA(O)>;  // RA(O) = AltGr+O = Ö
+            // SE layout: HID SEMI (0x33) = ö/Ö. RA(O) was wrong — that is not Ö on SE.
+            bindings = <&hmr RCTRL O>, <&kp SEMI>;
         };
 
         td_nav_num: tap_dance_nav_num {
@@ -38,13 +42,10 @@
             label = "TD_NAV_NUM";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            // Single tap toggles NAV (tap again to exit).
-            // Double tap toggles NUM (double-tap again to exit).
-            // Reworked on 2026-05-22 from <&mo NAV>, <&num_word NUM>:
-            // num_word came from urob/zmk-auto-layer which has no ZMK-main
-            // compatible release. &tog gives a self-exiting key, which the
-            // momentary form lacked anyway.
-            bindings = <&tog NAV>, <&tog NUM>;
+            // Hold   → momentary NUM (&ht_mo_tog hold fires &mo NUM)
+            // Tap    → toggle NAV  (&ht_mo_tog tap fires &tog NAV)
+            // Double → toggle NUM  (&tog NUM, persistent until pressed again)
+            bindings = <&ht_mo_tog NUM NAV>, <&tog NUM>;
         };
 
         td_colemak: tap_dance_colemak {
@@ -52,7 +53,7 @@
             label = "TD_COLEMAK";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&trans>, <&tog COLEMAK>;  // single-tap = pass-through; double-tap = toggle Colemak DH
+            bindings = <&kp RET>, <&tog COLEMAK>;  // single-tap = Enter; double-tap = toggle Colemak DH
         };
 
         // Replaces the old `&mo_tog SYSTEM SYSTEM` on the left SYS thumb.
@@ -67,7 +68,10 @@
             label = "TD_SYS_GAMING";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&mo SYSTEM>, <&tog GAMING>;
+            // Tap  → sticky SYSTEM (&sl): press+release SYS, then press a key on SYSTEM layer
+            // Hold → momentary SYSTEM (&mo): holds layer active while thumb is down
+            // Double-tap → toggle GAMING on/off
+            bindings = <&sl_mo SYSTEM SYSTEM>, <&tog GAMING>;
         };
 
     };
