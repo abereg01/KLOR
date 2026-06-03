@@ -37,23 +37,13 @@
             bindings = <&hmr RCTRL O>, <&kp SEMI>;
         };
 
-        td_nav_num: tap_dance_nav_num {
-            compatible = "zmk,behavior-tap-dance";
-            label = "TD_NAV_NUM";
-            #binding-cells = <0>;
-            tapping-term-ms = <250>;
-            // Hold   → momentary NUM (&ht_mo_tog hold fires &mo NUM)
-            // Tap    → toggle NAV  (&ht_mo_tog tap fires &tog NAV)
-            // Double → toggle NUM  (&tog NUM, persistent until pressed again)
-            bindings = <&ht_mo_tog NUM NAV>, <&tog NUM>;
-        };
-
         td_colemak: tap_dance_colemak {
             compatible = "zmk,behavior-tap-dance";
             label = "TD_COLEMAK";
             #binding-cells = <0>;
             tapping-term-ms = <250>;
-            bindings = <&kp RET>, <&tog COLEMAK>;  // single-tap = Enter; double-tap = toggle Colemak DH
+            // Tap/hold = Enter / momentary NAV; double-tap = toggle Colemak DH
+            bindings = <&ht_ret_nav NAV RET>, <&tog COLEMAK>;
         };
 
         // Replaces the old `&mo_tog SYSTEM SYSTEM` on the left SYS thumb.

@@ -23,8 +23,6 @@
         };
 
         // Hold = momentary layer (&mo), Tap = toggle layer (&tog).
-        // Used as the inner binding in td_nav_num so holding the thumb gives
-        // momentary NUM, a quick tap toggles NAV, and double-tap toggles NUM.
         ht_mo_tog: hold_tap_mo_tog {
             compatible = "zmk,behavior-hold-tap";
             label = "HT_MO_TOG";
@@ -109,6 +107,19 @@
                 23 24 25 26 27
                 36 37 38
             >;
+        };
+
+        // Hold = momentary layer (&mo NAV), Tap = Enter.
+        // Used on both inner thumb keys so holding gives momentary NAV
+        // and a quick tap produces Enter. Left thumb uses this directly;
+        // right thumb wraps it in td_colemak for the Colemak double-tap.
+        ht_ret_nav: hold_tap_ret_nav {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HT_RET_NAV";
+            #binding-cells = <2>;
+            bindings = <&mo>, <&kp>;
+            tapping-term-ms = <200>;
+            flavor = "hold-preferred";
         };
 
         // Legacy non-positional alias. Kept so older config snippets keep
